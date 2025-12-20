@@ -1,0 +1,88 @@
+body{
+    font-family: "Plus Jakarta Sans",sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}   
+.container{
+    flex: 1;
+}
+.navbar{
+    height: 4.5rem;
+}
+.fa-solid {
+    color: rgb(212, 24, 24);
+    font-size: 1.75rem;
+}
+.nav-link{
+    color: black !important;
+}
+.f-info{
+    height: 8rem;
+    padding: 2rem;
+    line-height: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: rgb(247, 247, 247);
+}
+.f-info-socials{
+    font-size: 1.55rem;
+}
+.f-info-links a{
+    text-decoration: none;
+    color: black;
+}
+.f-info-links a :hover{
+    text-decoration: underline;
+    color:  rgb(212, 24, 24);
+}
+.card{
+    padding: 0.5rem;
+    display: flex;
+    border: none !important;
+}
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    margin-bottom: 0.5rem;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-redirect{
+    text-decoration: none;
+    color: black;
+}
+.card-title{
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color:white ;
+}
+.mb-3{
+    margin-top: 0.2rem;
+}
+.btn{
+    margin-bottom: 0.3rem;
+    margin-right: 0.3rem;
+}
+.btn{
+    background-color: red !important;
+}
+.card-img-top{
+    height: 20rem;
+    width: 10rem;
+}
+.form{
+    display: flex;
+    flex-wrap: wrap;
+}
