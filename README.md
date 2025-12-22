@@ -7,7 +7,7 @@ built using modern technologies and best development practices.
 
 ## 📂 Projects Included
 
-### 🏠 Airbnb Clone
+### 🏠 TravelNest.
 A full-stack web application with authentication, CRUD operations,
 image handling, and MongoDB integration.
 
