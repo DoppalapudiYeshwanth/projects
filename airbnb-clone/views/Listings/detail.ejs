@@ -11,13 +11,41 @@
                 <p class="card-text">Country : <%=list.country%></p>
                 <div class="form">
                  <form action="/listings/<%=list._id%>/edit"method="GET">
-                    <button class="btn btn-primary">Edit the list</button>
+                    <button class="btn btn-outline-light">Edit the list</button>
                 </form>
                 <form action="/listings/<%=list._id%>/delete?_method=DELETE" method="POST">
-                    <button class="btn btn-primary">Delete the list</button>
+                    <button class="btn btn-outline-light">Delete the list</button>
                 </form>
                 </div>
             </div>
+            </div><br>
+            <div class="col-8 mb-2">
+                <h4>Leave a review</h4>
+                <form action="/listings/<%=list._id%>/reviews"method="POST" novalidate class="needs-validation">
+                    <label for="comment">Comment</label><br>
+                    <textarea name="review[comment]" rows="7" cols="35" class="form-control" required></textarea><br>
+                    <div class="invalid-feedback">Needs some comments to add a review</div>
+                    <label for="rating">Rating</label><br>
+                    <input type="number"name="review[rating]"class="form-control" required min="0" max="5"><br>
+                    <div class="invalid-feedback">Need some rating to add a review</div>
+                    <button class="btn btn-outline-light">Add</button>
+                </form>
+            </div>
+            <hr>
+            <p><b>All Reviews</b></p>
+            <div class="row">
+            <%for(review of list.reviews){%>
+                <div class="card col-6" style="width: 25rem;">
+                <div class="card-body">
+                <h5 class="card-title">User</h5>
+                <p class="card-text">Comments : <%=review.comment%>.....Rating : <%=review.rating%><i class="fa-solid fa-star" style="font-size: 0.95rem;"></i></p>
+                </div>
+                <form action="/listings/<%=list._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-outline-light mt-2" style="font-size: small;">Delete</button>
+                </form>
+                </div>
+            <%}%>
             </div>
         </div>
-</div>
+</div>  
+
