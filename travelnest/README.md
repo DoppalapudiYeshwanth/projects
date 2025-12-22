@@ -1,4 +1,4 @@
-# Airbnb Clone 🏠
+# TravelNest 🏠
 
 A full-stack Airbnb-style web application with CRUD operations,
 server-side rendering, and MongoDB integration.
