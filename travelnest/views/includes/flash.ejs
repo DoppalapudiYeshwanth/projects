@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if (addList && addList.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= addList %>
+  </div>
+<% } %>
+
+<% if (deleteList && deleteList.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= deleteList %>
+  </div>
+<% } %>
+
+<% if (updateList && updateList.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= updateList %>
+  </div>
+<% } %>
+
+<% if (addReview && addReview.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= addReview %>
+  </div>
+<% } %>
+
+<% if (deleteReview && deleteReview.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= deleteReview %>
+  </div>
+<% } %>
+
+<% if (noList && noList.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= noList %>
+  </div>
+<% } %>
+
+<% if (addUser && addUser.length) { %>
+  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <%= addUser %>
+  </div>
+<% } %>
+</body>
+</html>

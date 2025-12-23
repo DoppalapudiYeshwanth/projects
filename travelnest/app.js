@@ -6,6 +6,12 @@ const ejs_mate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const listingsRoute = require("./routes/listing");
 const reviewRoute = require("./routes/review");
+const userRoute = require("./routes/user");
+const express_session = require("express-session");
+const connect_flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 
 const app = express();
 const port = 8080;
@@ -32,10 +38,44 @@ app.listen(port,()=>{
     console.log("Listening on port 8080 actively");
 });
 
+const expressOptions = {
+    secret : "mysecret",
+    saveUninitialized :true,
+    resave:false,
+    cookie :{
+      expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge : 7 * 24 * 60 * 60 * 1000,
+      httpOnly : true,
+    },
+};
+//express session
+app.use(express_session(expressOptions));
+app.use(connect_flash());
+
+//passport authentication part
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//flash middleware
+app.use((req,res,next)=>{
+  res.locals.addList = req.flash("addList");
+  res.locals.deleteList = req.flash("deleteList");
+  res.locals.updateList = req.flash("updateList");
+  res.locals.addReview = req.flash("addReview");
+  res.locals.deleteReview = req.flash("deleteReview");
+  res.locals.noList= req.flash("noList");
+  res.locals.addUser= req.flash("addUser");
+  next();
+});
 
 //Calling Express routes
 app.use("/listings",listingsRoute);
-app.use("/listings/:id",reviewRoute);
+app.use("/listings/:id/reviews",reviewRoute);
+app.use("/users", userRoute);
+
 
 
 app.use((req,res,next)=>{

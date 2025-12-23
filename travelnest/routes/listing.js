@@ -9,7 +9,7 @@ const Listing = require("../models/listing");
 const validateListing = (req,res,next)=>{
     let { error }= listingSchema.validate(req.body);
     if(error){
-        let erMsg = error.details.map((el)=>el.message).join(",");
+        let errMsg = error.details.map((el)=>el.message).join(",");
         throw new ExpressError(400,errMsg);
     }else{
         next();
@@ -17,7 +17,7 @@ const validateListing = (req,res,next)=>{
 }
 
 //show route
-router.get("", WrapAsync (async (req,res)=>{
+router.get("/", WrapAsync (async (req,res)=>{
     const allListings = await Listing.find({});
     res.render("Listings/show.ejs",{allListings});
 }));
@@ -31,6 +31,10 @@ router.get("/new",(req,res)=>{
 router.get("/:id/edit", WrapAsync (async(req,res)=>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
+    if(!listing){
+        req.flash("noList","List doesn't exist");
+        res.redirect("/listings");
+    }
     res.render("Listings/edit.ejs",{listing});
 }));
 
@@ -60,6 +64,7 @@ router.put("/:id", WrapAsync(async (req, res) => {
         };
     }
     await listing.save();
+    req.flash("updateList","Listed Updated Successfully");
     res.redirect(`/listings/${id}`);
 }));
 
@@ -67,6 +72,7 @@ router.put("/:id", WrapAsync(async (req, res) => {
 router.delete("/:id/delete",WrapAsync(async (req,res)=>{
     let {id} = req.params;
     await Listing.findOneAndDelete({ _id: id });
+    req.flash("deleteList","Listed Deleted Successfully");
     res.redirect("/listings");
 }));
 
@@ -74,11 +80,15 @@ router.delete("/:id/delete",WrapAsync(async (req,res)=>{
 router.get("/:id",WrapAsync(async (req,res)=>{
     let {id} = req.params;
     const list = await Listing.findById(id).populate("reviews");
+    if(!list){
+        req.flash("noList","List doesn't exist");
+        res.redirect("/listings");
+    }
     res.render("Listings/detail.ejs",{list});
 }));
 
 //create route
-router.post("",validateListing, WrapAsync(async (req, res) => {
+router.post("/",validateListing, WrapAsync(async (req, res) => {
     const { error } = listingSchema.validate(req.body);
     if (error) {
         throw new ExpressError(400, error.details[0].message);
@@ -97,6 +107,7 @@ router.post("",validateListing, WrapAsync(async (req, res) => {
   });
   
   await listing.save();
+  req.flash("addList","Listed Created Successfully");
   res.redirect("/listings");
 }));
 
