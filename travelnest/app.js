@@ -11,6 +11,7 @@ const express_session = require("express-session");
 const connect_flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const bcrypt = require("bcrypt");
 const User = require("./models/user");
 
 const app = express();
@@ -55,9 +56,34 @@ app.use(connect_flash());
 //passport authentication part
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+passport.use(new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username });
+      if (!user) return done(null, false, { message: "Invalid username" });
+
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) return done(null, false, { message: "Invalid password" });
+
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }));
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
 
 //flash middleware
 app.use((req,res,next)=>{
@@ -68,6 +94,9 @@ app.use((req,res,next)=>{
   res.locals.deleteReview = req.flash("deleteReview");
   res.locals.noList= req.flash("noList");
   res.locals.addUser= req.flash("addUser");
+  res.locals.success= req.flash("success");
+  res.locals.error= req.flash("error");
+  res.locals.currentUser = req.user;
   next();
 });
 
