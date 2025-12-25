@@ -9,6 +9,8 @@
                 <p class="card-text">Price : ₹<%=list.price.toLocaleString("en-IN")%></p>
                 <p class="card-text">Location : <%=list.location%></p>
                 <p class="card-text">Country : <%=list.country%></p>
+                <p class="card-text"><b>Created By : <%=list.owner.username%></b></p>
+                <%if(currentUser &&currentUser._id.equals(list.owner._id)){%>
                 <div class="form">
                  <form action="/listings/<%=list._id%>/edit"method="GET">
                     <button class="btn btn-outline-light">Edit the list</button>
@@ -17,19 +19,34 @@
                     <button class="btn btn-outline-light">Delete the list</button>
                 </form>
                 </div>
+                <%}%>
             </div>
             </div><br>
-            <div class="col-8 mb-2">
+            <div class="col-8 mb-2 p-2">
+                <%if(currentUser){%>
                 <h4>Leave a review</h4>
+                <p>Please rate us for our service.</p>
                 <form action="/listings/<%=list._id%>/reviews"method="POST" novalidate class="needs-validation">
+                    <fieldset class="starability-slot">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                <div class="invalid-feedback">Need some rating to add a review</div>
                     <label for="comment">Comment</label><br>
                     <textarea name="review[comment]" rows="7" cols="35" class="form-control" required></textarea><br>
                     <div class="invalid-feedback">Needs some comments to add a review</div>
-                    <label for="rating">Rating</label><br>
-                    <input type="number"name="review[rating]"class="form-control" required min="0" max="5"><br>
-                    <div class="invalid-feedback">Need some rating to add a review</div>
                     <button class="btn btn-outline-light">Add</button>
                 </form>
+                <%}%>
             </div>
             <hr>
             <p><b>All Reviews</b></p>
@@ -37,12 +54,15 @@
             <%for(review of list.reviews){%>
                 <div class="card col-6" style="width: 25rem;">
                 <div class="card-body">
-                <h5 class="card-title">User</h5>
-                <p class="card-text">Comments : <%=review.comment%>.....Rating : <%=review.rating%><i class="fa-solid fa-star" style="font-size: 0.95rem;"></i></p>
+                <h5 class="card-title"><%=review.author.username%></h5>
+                <p class="card-text">Comments : <%=review.comment%></p>
+                <p class="starability-result" data-rating="<%=review.rating%>"></p>
                 </div>
+                <%if(currentUser &&currentUser._id.equals(review.author._id)){%>
                 <form action="/listings/<%=list._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-outline-light mt-2" style="font-size: small;">Delete</button>
                 </form>
+                <%}%>
                 </div>
             <%}%>
             </div>

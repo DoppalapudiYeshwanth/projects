@@ -13,8 +13,16 @@ main().then(() => {
   console.log("Connection Error:", err);
 });
 
-const initDb = async function(){
-    await Listing.deleteMany({});
-    await Listing.insertMany(data.data);
+const initDb = async () => {
+  await Listing.deleteMany({});
+
+  const listingsWithOwner = data.data.map((listing) => ({
+    ...listing,
+    owner: "694beffc87287a3f0c3a9256" ,
+  }));
+
+  await Listing.insertMany(listingsWithOwner);
+  console.log("Database initialized with sample listings");
 };
+
 initDb();
