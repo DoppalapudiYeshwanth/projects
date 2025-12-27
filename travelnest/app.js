@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !="production"){
+    require('dotenv').config()
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -8,17 +12,19 @@ const listingsRoute = require("./routes/listing");
 const reviewRoute = require("./routes/review");
 const userRoute = require("./routes/user");
 const express_session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const connect_flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const User = require("./models/user");
+const dbUrl = process.env.ATLAS_URL;
 
 const app = express();
 const port = 8080;
 
 async function main(){
-    await mongoose.connect("mongodb+srv://yeshwanthd2006_db_user:yeshwanth2006D@airbnbproject.bcjspuj.mongodb.net/?appName=AirBnbProject")
+    await mongoose.connect(dbUrl);
 }
 
 main().then(() => {
@@ -39,8 +45,22 @@ app.listen(port,()=>{
     console.log("Listening on port 8080 actively");
 });
 
+//connect-monogo cloud version of express-session production level
+const store = MongoStore.create({ 
+    mongoUrl: dbUrl,
+    crypto : {
+      secret : process.env.SESSION_SECRET
+    },
+    touchAfter : 24 * 3600,
+});
+
+store.on("error",()=>{
+  console.log("Error in Mongo session store");
+});
+
 const expressOptions = {
-    secret : "mysecret",
+    store,
+    secret : process.env.SESSION_SECRET,
     saveUninitialized :true,
     resave:false,
     cookie :{
@@ -49,6 +69,8 @@ const expressOptions = {
       httpOnly : true,
     },
 };
+
+
 //express session
 app.use(express_session(expressOptions));
 app.use(connect_flash());

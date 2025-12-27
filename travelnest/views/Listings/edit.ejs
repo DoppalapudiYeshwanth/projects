@@ -2,7 +2,21 @@
     <div class="row">
         <div class="col-8"><br><br>
     <h2>Edit your list</h2>
-    <form action="/listings/<%=listing._id%>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <p>Existing Images</p>
+        <div class="row">
+        <% for (let img of listing.images) { %>
+            <div class="col-md-4 mb-3">
+            <img src="<%= img.url %>" class="img-fluid rounded mb-1">
+            <form 
+                action="/listings/<%= listing._id %>/images/<%= img._id %>?_method=DELETE"
+                method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+            </div>
+        <% } %>
+        </div>
+        <hr>
+        <form action="/listings/<%=listing._id%>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="mb-3"><label for="title" class="form-label">Title</label>
             <input type="text"name="Listing[title]"  value="<%=listing.title%>" class="form-control" required>
             <div class="valid-feedback">Title looks good</div>
@@ -11,8 +25,14 @@
             <textarea name="Listing[description]" class="form-control"required><%=listing.description%></textarea>
             <div class="invalid-feedback">Add some description</div>
         </div>
-        <div class="mb-3"><label for="image" class="form-label">Image</label>
-            <input type="text" name="Listing[image]" value="<%=listing.image.url%>"class="form-control"required>
+        <div class="mb-3">
+        <label class="form-label">Add New Images</label>
+        <input 
+            type="file" 
+            name="Listing[images]" 
+            multiple 
+            class="form-control"
+        >
         </div>
         <div class="mb-3"><label for="price" class="form-label">Price</label>
              <input type="text"name="Listing[price]" value="<%=listing.price%>" class="form-control"required>

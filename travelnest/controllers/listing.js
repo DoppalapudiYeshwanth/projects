@@ -2,9 +2,18 @@ const Listing = require("../models/listing");
 const {listingSchema} = require("../schema");
 const ExpressError = require("../utils/ExpressError");
 
+
 const showRoute = async (req,res)=>{
-    const allListings = await Listing.find({});
-    res.render("Listings/show.ejs",{allListings});
+    // const allListings = await Listing.find({});
+    const { category } = req.query;
+
+    let listings;
+    if (category) {
+        listings = await Listing.find({ category });
+    } else {
+        listings = await Listing.find({});
+    }
+    res.render("Listings/show.ejs",{allListings : listings, category});
 };
 
 const newRoute = (req,res)=>{
@@ -18,6 +27,9 @@ const editRoute = async(req,res)=>{
         req.flash("noList","List doesn't exist");
         res.redirect("/listings");
     }
+    // let originalImageUrl = listing.image.url;
+    // originalImageUrl.replace("/upload","/upload/h_30,w_25");
+
     res.render("Listings/edit.ejs",{listing});
 };
 
@@ -29,8 +41,8 @@ const updateRoute = async (req, res) => {
         price,
         location,
         country,
-        image
     } = req.body.Listing;
+    
     const listing = await Listing.findById(id);
 
     listing.title = title;
@@ -39,11 +51,13 @@ const updateRoute = async (req, res) => {
     listing.location = location;
     listing.country = country;
 
-    if (image && image.trim() !== "") {
-        listing.image = {
-            filename: "listingimage",
-            url: image
-        };
+    if (req.files && req.files.length > 0) {
+        for (let file of req.files) {
+            listing.images.push({
+                filename: file.filename,
+                url: file.path,
+            });
+        }
     }
     await listing.save();
     req.flash("updateList","Listed Updated Successfully");
@@ -72,14 +86,15 @@ const createRoute =async (req, res) => {
     if (error) {
         throw new ExpressError(400, error.details[0].message);
     }
+    const images = req.files.map(file => ({
+    filename: file.filename,
+    url: file.path,
+    }));
 
     const listing = new Listing({
     title: req.body.Listing.title,
     description: req.body.Listing.description,
-    image: {
-      filename: "listingimage",
-      url: req.body.Listing.image,
-    },
+    images,
     price: req.body.Listing.price,
     location: req.body.Listing.location,
     country: req.body.Listing.country,
@@ -91,4 +106,14 @@ const createRoute =async (req, res) => {
   res.redirect("/listings");
 };
 
-module.exports = {showRoute , newRoute ,editRoute, updateRoute, deleteRoute, detailedRoute , createRoute};
+const deleteImage = async (req, res) => {
+    const { id, imageId } = req.params;
+    await Listing.findByIdAndUpdate(id, {
+      $pull: { images: { _id: imageId } }
+    });
+
+    req.flash("updateList", "Image deleted successfully");
+    res.redirect(`/listings/${id}/edit`);
+};
+
+module.exports = {showRoute , newRoute ,editRoute, updateRoute, deleteRoute, detailedRoute , createRoute, deleteImage};

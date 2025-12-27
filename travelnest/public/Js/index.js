@@ -1,5 +1,5 @@
 // Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
+document.addEventListener("DOMContentLoaded",() => {
   'use strict'
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -16,4 +16,13 @@
       form.classList.add('was-validated')
     }, false)
   })
-})()
+})
+
+let taxSwitch = document.getElementById("switchCheckDefault");
+taxSwitch.addEventListener("change",()=>{
+  console.log("clicked");
+  let taxInfo = document.getElementsByClassName("tax-info");
+  for(let info of taxInfo){
+    info.classList.toggle("show");
+  }
+});

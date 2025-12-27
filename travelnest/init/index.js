@@ -1,9 +1,17 @@
+const path = require("path");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
+
 const mongoose = require("mongoose");
 const data = require("../init/data");
 const Listing = require("../models/listing");
 
+const dbUrl  = process.env.ATLAS_URL;
+
 async function main(){
-    mongoose.connect("mongodb+srv://yeshwanthd2006_db_user:yeshwanth2006D@airbnbproject.bcjspuj.mongodb.net/?appName=AirBnbProject")
+    await mongoose.connect(dbUrl);
 }
 
 main().then(() => {
@@ -15,14 +23,10 @@ main().then(() => {
 
 const initDb = async () => {
   await Listing.deleteMany({});
-
-  const listingsWithOwner = data.data.map((listing) => ({
-    ...listing,
-    owner: "694beffc87287a3f0c3a9256" ,
-  }));
-
-  await Listing.insertMany(listingsWithOwner);
+  await Listing.insertMany(data);
   console.log("Database initialized with sample listings");
+
+  mongoose.connection.close();
 };
 
 initDb();

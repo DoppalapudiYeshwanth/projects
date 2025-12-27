@@ -11,16 +11,16 @@ const listingSchema = new Schema({
         type : String,
         required : true,
     },
-    image: {
+    images: [{
     filename: {
       type: String,
-      default: "listingimage",
+      required : true,
     },
     url: {
       type: String,
-      default: "https://pixabay.com/photos/kitten-cat-feline-animal-pet-9920257/",
+      required : true,
     },
-    },
+    }],
     price : {
         type : Number,
         required : true,
@@ -43,6 +43,20 @@ const listingSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "User",
     },
+    category: {
+    type: String,
+    required: true,
+    enum: [
+      "Trending",
+      "Destinations",
+      "Hotels",
+      "Adventures",
+      "Trips",
+      "Guides",
+      "Car Rentals",
+      "Memories",
+    ],
+  },
 });
 
 //middleware to delete the review associated with the listing

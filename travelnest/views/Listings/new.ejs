@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-8 offset-2"><br><br>
     <h2>Creating a new list.</h2>
-    <form action="/listings" method="POST" class="needs-validation" novalidate>
+    <form action="/listings" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="mb-3"><label for="title" class="form-label">Title</label>
             <input type="text"name="Listing[title]" placeholder="Enter the type of stay" class="form-control" required>
             <div class="valid-feedback">Title is good</div>
@@ -11,8 +11,8 @@
             <textarea name="Listing[description]" class="form-control"required></textarea>
             <div class="invalid-feedback">Add some description</div>
         </div>
-        <div class="mb-3"><label for="image" class="form-label">Image</label>
-            <input type="text" name="Listing[image]" placeholder="give the image link of stay"class="form-control"required>
+        <div class="mb-3"><label for="image" class="form-label">Upload Image</label>
+            <input type="file" name="Listing[images]" placeholder="give the image link of stay"class="form-control"required multiple>
         </div>
         <div class="mb-3"><label for="price" class="form-label">Price</label>
              <input type="text"name="Listing[price]" placeholder="1200"class="form-control"required>
@@ -28,6 +28,18 @@
             <div class="invalid-feedback">Add your country</div>
         </div>
         </div>
+        <label class="form-label">Category</label>
+            <select name="Listing[category]" class="form-select" required>
+            <option value="" disabled selected>Select category</option>
+            <option value="Trending">Trending</option>
+            <option value="Destinations">Destinations</option>
+            <option value="Hotels">Hotels</option>
+            <option value="Adventures">Adventures</option>
+            <option value="Trips">Trips</option>
+            <option value="Guides">Guides</option>
+            <option value="Car Rentals">Car Rentals</option>
+            <option value="Memories">Memories</option>
+            </select>
         <br><button class="btn btn-dark add-btn">Add</button><br><br>
     </form>
     </div>
