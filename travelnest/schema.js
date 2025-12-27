@@ -8,6 +8,18 @@ const listingSchema = Joi.object({
         price : Joi.number().required().min(0),
         location : Joi.string().required(),
         country : Joi.string().required(),
+        category: Joi.string()
+      .valid(
+        "Trending",
+        "Destinations",
+        "Hotels",
+        "Adventures",
+        "Trips",
+        "Guides",
+        "Car Rentals",
+        "Memories"
+      )
+      .required(),
     }).required()
 });
 module.exports = {listingSchema};

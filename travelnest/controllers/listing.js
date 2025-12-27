@@ -41,6 +41,7 @@ const updateRoute = async (req, res) => {
         price,
         location,
         country,
+        category,
     } = req.body.Listing;
     
     const listing = await Listing.findById(id);
@@ -50,7 +51,8 @@ const updateRoute = async (req, res) => {
     listing.price = price;
     listing.location = location;
     listing.country = country;
-
+    listing.category = category;
+    
     if (req.files && req.files.length > 0) {
         for (let file of req.files) {
             listing.images.push({
@@ -99,6 +101,7 @@ const createRoute =async (req, res) => {
     location: req.body.Listing.location,
     country: req.body.Listing.country,
     owner : req.user._id,
+    category: req.body.Listing.category,
   });
   
   await listing.save();
