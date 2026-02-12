@@ -1,0 +1,45 @@
+<section class="job-detail-page">
+  <div class="job-detail-card">
+    
+    <div class="job-header">
+      <h1 class="job-title"><%= job.title %></h1>
+      <div class="job-meta">
+        <span class="job-pill"><%= job.jobType %></span>
+        <span class="job-location"><%= job.location %></span>
+      </div>
+    </div>
+
+    <div class="job-description">
+      <h4>Job Description</h4>
+      <p><%= job.description %></p>
+    </div>
+
+    <div class="job-info-grid">
+      <div>
+        <strong>Skills Required</strong>
+        <p><%= job.requiredSkills.join(", ") %></p>
+      </div>
+
+      <div>
+        <strong>Experience Level</strong>
+        <p><%= job.experienceLevel %></p>
+      </div>
+
+      <div>
+        <strong>Posted On</strong>
+        <p><%= job.createdAt.toDateString() %></p>
+      </div>
+    </div>
+
+    <div class="job-actions">
+      <a href="/home" class="btn-secondary">← Back</a>
+      <a href="/apply/<%= job._id %>" class="btn-primary">Apply Now</a>
+      <a href="/home/<%= job._id %>/update" class="btn-outline">Update</a>
+
+      <form action="/home/<%= job._id %>/delete?_method=DELETE" method="POST" class="inline-form">
+        <button class="btn-danger">Delete</button>
+      </form>
+    </div>
+
+  </div>
+</section>

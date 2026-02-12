@@ -1,0 +1,31 @@
+<section class="jobs-section">
+  <div class="jobs-header">
+    <h1>Latest Job Openings</h1>
+    <p>Find roles that match your skills and career goals</p>
+  </div>
+
+  <div class="jobs-grid">
+    <% for (let job of jobs) { %>
+      <div class="job-card">
+        <div class="job-card-body">
+          <h3 class="job-title"><%= job.title %></h3>
+
+          <div class="job-tags">
+            <span class="job-badge"><%= job.jobType %></span>
+            <span class="job-location"><%= job.location %></span>
+          </div>
+
+          <p class="job-date">
+            Posted on <%= job.createdAt.toDateString() %>
+          </p>
+        </div>
+
+        <div class="job-card-footer">
+          <a href="/home/<%= job._id %>" class="job-btn">
+            Know More →
+          </a>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>

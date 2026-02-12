@@ -1,0 +1,72 @@
+<nav class="app-navbar navbar navbar-expand-lg">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand app-brand" href="/home">
+      HireUs <i class="fa-brands fa-hire-a-helper"></i>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#appNavbar"
+      aria-controls="appNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="appNavbar">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+
+        <li class="nav-item">
+          <a class="nav-link app-link" href="/home">Jobs</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link app-link" href="/candidates">Explore</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle app-link"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Recruiter
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="/home/create">Post a Job</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/candidateInput">Add a Candidate</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/home">My Jobs</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Search -->
+        <li class="nav-item">
+          <form class="nav-search">
+            <input
+              type="search"
+              placeholder="Search jobs..."
+              aria-label="Search"
+            />
+          </form>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

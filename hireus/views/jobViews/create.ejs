@@ -1,0 +1,53 @@
+<section class="post-job-page">
+  <div class="post-job-card">
+    <div class="post-job-header">
+      <h1>Post a Job</h1>
+      <p>Create a new job opening for candidates</p>
+    </div>
+
+    <form action="/home/create" method="POST" class="post-job-form needs-validation" novalidate>
+
+      <div class="form-group">
+        <label>Job Title</label>
+        <input type="text" class="form-control" name="Job[title]" placeholder="e.g. Frontend Developer" required>
+        <div class="invalid-feedback">Please provide a job title.</div>
+      </div>
+
+      <div class="form-group">
+        <label>Job Description</label>
+        <textarea class="form-control" rows="4" name="Job[description]" placeholder="Describe the role and responsibilities" required></textarea>
+        <div class="invalid-feedback">Please provide a job description.</div>
+      </div>
+
+      <div class="form-group">
+        <label>Required Skills</label>
+        <input type="text" class="form-control" name="Job[requiredSkills]" placeholder="e.g. JavaScript, React, Node.js" required>
+        <small class="text-muted">Comma separated</small>
+        <div class="invalid-feedback">Please provide required skills.</div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Experience Level</label>
+          <input type="text" class="form-control" name="Job[experienceLevel]" placeholder="Fresher / Junior / Senior" required>
+        </div>
+
+        <div class="form-group">
+          <label>Job Type</label>
+          <input type="text" class="form-control" name="Job[jobType]" placeholder="Internship / Full-time" required>
+        </div>
+
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" class="form-control" name="Job[location]" placeholder="Remote / Bangalore" required>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Post Job</button>
+        <a href="/home" class="btn-secondary">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</section>
