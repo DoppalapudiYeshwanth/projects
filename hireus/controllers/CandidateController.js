@@ -43,4 +43,15 @@ const candidateDetailsForm = (req,res)=>{
     res.render("candidateViews/form.ejs");
 };
 
-module.exports = {candidateDetailsForm,CandidateDetailsUpload,getAllCandidates};
+const getSingleJob = async(req,res,next)=>{
+    try{
+    let id = req.params.id;
+    let job = await Job.findById(id);
+    res.render("hrViews/detail.ejs",{job});
+    }
+    catch(err){
+        next(err);
+    }
+};
+
+module.exports = {candidateDetailsForm,CandidateDetailsUpload,getAllCandidates,getSingleJob};

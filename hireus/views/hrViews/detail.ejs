@@ -1,0 +1,124 @@
+<section class="job-detail-page">
+  <div class="job-detail-card">
+
+    <!-- ===== Job Header ===== -->
+    <div class="job-header">
+      <h1 class="job-title"><%= job.title %></h1>
+
+      <div class="job-meta">
+        <span class="job-pill">
+          <i class="fa-solid fa-briefcase me-1"></i>
+          <%= job.jobType %>
+        </span>
+
+        <span class="job-pill">
+          <i class="fa-solid fa-location-dot me-1"></i>
+          <%= job.location %>
+        </span>
+
+        <span class="job-pill">
+          <i class="fa-solid fa-signal me-1"></i>
+          <%= job.experienceLevel %>
+        </span>
+      </div>
+
+      <p class="job-date mt-2">
+        <i class="fa-solid fa-calendar-days me-1"></i>
+        Posted on <%= job.createdAt.toDateString() %>
+      </p>
+    </div>
+
+    <!-- ===== Job Description ===== -->
+    <div class="job-description">
+      <h4>Job Description</h4>
+      <p><%= job.description %></p>
+    </div>
+
+    <!-- ===== Skills Section ===== -->
+    <div class="job-skills mt-4">
+      <h4>Required Skills</h4>
+
+      <div class="skills-list">
+        <% job.requiredSkills.forEach(skill => { %>
+          <span class="skill-badge">
+            <i class="fa-solid fa-check me-1"></i>
+            <%= skill %>
+          </span>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- ===== Job Info Grid ===== -->
+    <div class="job-info-grid">
+
+      <div class="info-box">
+        <strong>Job Type</strong>
+        <p><%= job.jobType %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Experience Level</strong>
+        <p><%= job.experienceLevel %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Location</strong>
+        <p><%= job.location %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Status</strong>
+        <p class="text-success fw-semibold">
+          Active Hiring
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ===== Actions (Role Based) ===== -->
+    <div class="job-actions">
+
+      <!-- Back -->
+      <% if (user.role === "candidate") { %>
+        <a href="/candidate/jobs" class="btn-secondary">
+          ← Back to Jobs
+        </a>
+      <% } %>
+
+      <% if (user.role === "hr") { %>
+        <a href="/home" class="btn-secondary">
+          ← Back to HR Panel
+        </a>
+      <% } %>
+
+      <!-- Candidate Only -->
+      <% if (user.role === "candidate") { %>
+        <form action="/candidateInput" method="GET" class="inline-form">
+          <button class="btn-primary">
+            <i class="fa-solid fa-paper-plane me-1"></i>
+            Apply Now
+          </button>
+        </form>
+      <% } %>
+
+      <!-- HR Only -->
+      <% if (user.role === "hr") { %>
+
+        <a href="/home/<%= job._id %>/update" class="btn-outline">
+          <i class="fa-solid fa-pen-to-square me-1"></i>
+          Update Job
+        </a>
+
+        <form action="/home/<%= job._id %>/delete?_method=DELETE" method="POST" class="inline-form">
+          <button class="btn-danger">
+            <i class="fa-solid fa-trash me-1"></i>
+            Delete Job
+          </button>
+        </form>
+
+      <% } %>
+
+    </div>
+
+  </div>
+</section>

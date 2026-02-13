@@ -1,14 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const validateCandidate = require("../middleware/validateCandidate")
-const upload = require("../middleware/multer");
 
+const upload = require("../middleware/multer");
 const candidateController = require("../controllers/CandidateController");
 
-router.get("/candidateInput",candidateController.candidateDetailsForm);
+const { protect, authorize } = require("../middleware/authMiddleware");
 
-router.post("/candidateInput",upload.single("resume"),candidateController.CandidateDetailsUpload);
+/* Candidate fills profile */
+router.get(
+  "/candidateInput",
+  protect,
+  authorize("candidate"),
+  candidateController.candidateDetailsForm
+);
 
-router.get("/candidates",candidateController.getAllCandidates);
+router.post(
+  "/candidateInput",
+  protect,
+  authorize("candidate"),
+  upload.single("resume"),
+  candidateController.CandidateDetailsUpload
+);
+
+/* HR can view all candidates */
+router.get(
+  "/candidates",
+  protect,
+  authorize("hr"),
+  candidateController.getAllCandidates
+);
+
+router.get("/home/:id",candidateController.getSingleJob);
 
 module.exports = router;

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const path = require("path");
-const data = require("./data");
-// const Job = require("../models/jobSchema");
-const Candidate = require("../models/candidateSchema");
+const jobs = require("./data");
+const Job = require("../models/jobSchema");
+// const Candidate = require("../models/candidateSchema");
 
 require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
@@ -23,8 +23,7 @@ main().then(() => {
 });
 
 const initDb = async()=>{
-  await Candidate.deleteMany();
-  await Candidate.insertMany(data);
+  await Job.insertMany(jobs);
   console.log("Data inserted");
   mongoose.connection.close();
 }

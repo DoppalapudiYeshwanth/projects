@@ -7,10 +7,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const method_override = require("method-override");
 const expressLayouts = require("express-ejs-layouts");
+const cookieParser = require("cookie-parser");
 
-const jobRoutes = require("./routes/jobRoutes");
+const hrRoutes = require("./routes/hrRoutes");
 const candidateRoutes = require("./routes/candidateRoutes");
 const errorHandler = require("./middleware/errorHandling");
+const authRoutes = require("./routes/authRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 const dbUrl = process.env.ATLAS_URL;
@@ -34,18 +37,34 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(method_override("_method"));
+app.use(cookieParser());
 
+const jwt = require("jsonwebtoken");
+const People = require("./models/peopleSchema");
 
-app.use(jobRoutes);
+app.use(async (req, res, next) => {
+  res.locals.user = null;
+
+  try {
+    const token = req.cookies.token;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.locals.user = await People.findById(decoded.id).select("-password");
+    }
+  } catch (err) {
+    res.locals.user = null;
+  }
+
+  next();
+});
+
+app.use(hrRoutes);
 app.use(candidateRoutes);
-
+app.use(authRoutes);
+app.use(dashboardRoutes);
 
 app.use(errorHandler);
 
-
-app.get("/apply/:id",(req,res)=>{
-    res.send("Working");
-});
 
 app.listen(8080, () => {
   console.log("Port 8080 server started");

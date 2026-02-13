@@ -726,3 +726,116 @@ body {
 .btn-secondary:hover {
   opacity: 0.9;
 }
+
+/* ===== Navbar Premium Upgrade ===== */
+
+.app-navbar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.app-brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-brand i {
+  color: #4f46e5;
+  font-size: 20px;
+}
+
+/* Links */
+.app-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+.app-link:hover {
+  color: #4f46e5 !important;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-item {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-item:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* Search Bar */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 7px 14px;
+  transition: 0.2s ease;
+}
+
+.nav-search i {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.nav-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  width: 170px;
+  color: #111827;
+}
+
+.nav-search:focus-within {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+/* Skills Badges */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.skill-badge {
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}

@@ -25,6 +25,11 @@ const jobSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    postedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "People",
+    required: true,
+    },
     createdAt : {
         type : Date,
         required : true,
