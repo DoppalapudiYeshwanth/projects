@@ -80,7 +80,7 @@
 
       <!-- Back -->
       <% if (user.role === "candidate") { %>
-        <a href="/candidate/jobs" class="btn-secondary">
+        <a href="/home" class="btn-secondary">
           ← Back to Jobs
         </a>
       <% } %>
@@ -93,7 +93,7 @@
 
       <!-- Candidate Only -->
       <% if (user.role === "candidate") { %>
-        <form action="/candidateInput" method="GET" class="inline-form">
+        <form action="/jobs/<%= job._id %>/apply" method="POST" class="inline-form">
           <button class="btn-primary">
             <i class="fa-solid fa-paper-plane me-1"></i>
             Apply Now
@@ -108,7 +108,10 @@
           <i class="fa-solid fa-pen-to-square me-1"></i>
           Update Job
         </a>
-
+        <a href="/hr/jobs/<%= job._id %>/applications" class="btn-primary">
+          <i class="fa-solid fa-users me-1"></i>
+          View Applications
+        </a>
         <form action="/home/<%= job._id %>/delete?_method=DELETE" method="POST" class="inline-form">
           <button class="btn-danger">
             <i class="fa-solid fa-trash me-1"></i>

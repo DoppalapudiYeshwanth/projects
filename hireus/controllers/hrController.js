@@ -77,7 +77,7 @@ const updateJob = async (req, res, next) => {
 
     await Job.findByIdAndUpdate(id, job, { new: true });
 
-    res.redirect("/hr/hrjobs");
+    res.redirect("/home");
 
   } catch (err) {
     next(err);
@@ -107,5 +107,18 @@ const getMyJobs = async (req, res, next) => {
     next(err);
   }
 };
+const jobApplications = async (req, res, next) => {
+  try {
+    const jobId = req.params.id;
 
-module.exports = {getAllJobs,getSingleJob,createForm,createJob,updateForm,updateJob,deleteJob,getMyJobs};
+    const applications = await Application.find({ jobId })
+      .populate("candidateId");
+
+    res.render("hrViews/jobApplications.ejs", { applications });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+module.exports = {getAllJobs,getSingleJob,createForm,createJob,updateForm,updateJob,deleteJob,getMyJobs,jobApplications};

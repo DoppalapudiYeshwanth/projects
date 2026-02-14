@@ -35,9 +35,6 @@ const candidateSchema = Joi.object({
     .messages({
       "any.required": "Skills are required",
     }),
-
-  // ⚠️ resume is NOT validated here
-  // because Multer handles files, not Joi
 });
 
 module.exports = candidateSchema;

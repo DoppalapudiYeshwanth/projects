@@ -14,6 +14,7 @@ const candidateRoutes = require("./routes/candidateRoutes");
 const errorHandler = require("./middleware/errorHandling");
 const authRoutes = require("./routes/authRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const applicationRoutes = require("./routes/applicationRoutes");
 
 const app = express();
 const dbUrl = process.env.ATLAS_URL;
@@ -62,6 +63,7 @@ app.use(hrRoutes);
 app.use(candidateRoutes);
 app.use(authRoutes);
 app.use(dashboardRoutes);
+app.use(applicationRoutes);
 
 app.use(errorHandler);
 

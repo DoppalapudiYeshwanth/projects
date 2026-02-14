@@ -1,33 +1,20 @@
 const express = require("express");
 const router = express.Router();
-
-const upload = require("../middleware/multer");
 const candidateController = require("../controllers/CandidateController");
-
+const applicationController = require("../controllers/applicationController");
 const { protect, authorize } = require("../middleware/authMiddleware");
 
-/* Candidate fills profile */
 router.get(
-  "/candidateInput",
+  "/candidate/applications",
   protect,
   authorize("candidate"),
-  candidateController.candidateDetailsForm
+  applicationController.myApplications
 );
-
-router.post(
-  "/candidateInput",
+router.get(
+  "/candidate/profile",
   protect,
   authorize("candidate"),
-  upload.single("resume"),
-  candidateController.CandidateDetailsUpload
-);
-
-/* HR can view all candidates */
-router.get(
-  "/candidates",
-  protect,
-  authorize("hr"),
-  candidateController.getAllCandidates
+  candidateController.candidateProfile
 );
 
 router.get("/home/:id",candidateController.getSingleJob);

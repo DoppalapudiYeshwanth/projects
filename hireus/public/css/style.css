@@ -839,3 +839,73 @@ body {
   display: inline-flex;
   align-items: center;
 }
+/* ===== My Applications Status Badges ===== */
+
+.application-status {
+  margin-top: 14px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.applied {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.status-badge.shortlisted {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status-badge.rejected {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.empty-state h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.empty-state p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+select.form-control {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+}
+
+select.form-control:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+.apply-card {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.apply-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.apply-header p {
+  font-size: 14px;
+  color: #6b7280;
+}

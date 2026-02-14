@@ -13,7 +13,7 @@ const validateCandidate = (req, res, next) => {
     });
   }
 
-  next(); // Data is valid, move to controller
+  next();
 };
 
 module.exports = validateCandidate;
