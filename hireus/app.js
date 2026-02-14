@@ -1,7 +1,9 @@
 const path = require("path");
+
 require("dotenv").config({
   path: path.resolve(__dirname, "./.env"),
 });
+const PORT = process.env.PORT || 8080;
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -67,7 +69,6 @@ app.use(applicationRoutes);
 
 app.use(errorHandler);
 
-
-app.listen(8080, () => {
-  console.log("Port 8080 server started");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
