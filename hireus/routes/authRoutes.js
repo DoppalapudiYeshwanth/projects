@@ -9,7 +9,7 @@ router.get("/register/candidate", (req, res) => {
 });
 
 router.get("/register/hr", (req, res) => {
-  res.render("authViews/hrRegister.ejs");
+  res.render("authViews/HrRegister.ejs");
 });
 
 
