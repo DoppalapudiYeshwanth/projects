@@ -1,0 +1,73 @@
+<section class="jobs-section">
+
+  <div class="jobs-header">
+    <h1>Job Applications</h1>
+    <p>All candidates who applied for this job</p>
+  </div>
+
+  <% if(applications.length === 0) { %>
+    <div class="empty-state">
+      <h3>No Applications Yet</h3>
+      <p>No candidate has applied for this job.</p>
+    </div>
+  <% } %>
+
+  <div class="jobs-grid">
+
+    <% applications.forEach(app => { %>
+
+      <div class="job-card">
+        <div class="job-card-body">
+
+          <h3 class="job-title">
+            <i class="fa-solid fa-user me-2"></i>
+            <%= app.candidateId.name %>
+          </h3>
+
+          <p>
+            <i class="fa-solid fa-envelope me-1"></i>
+            <%= app.candidateId.email %>
+          </p>
+
+          <p>
+            <i class="fa-solid fa-code me-1"></i>
+            Skills: <%= app.candidateId.skills.join(", ") %>
+          </p>
+
+          <p class="job-date">
+            Applied on <%= app.appliedAt.toDateString() %>
+          </p>
+
+          <!-- Status Update Form -->
+          <form
+            action="/hr/applications/<%= app._id %>/status?_method=PUT"
+            method="POST"
+            class="mt-3"
+          >
+            <label class="form-label fw-bold">Update Status</label>
+
+            <select name="status" class="form-control">
+              <option value="applied" <%= app.status==="applied"?"selected":"" %>>
+                Applied
+              </option>
+              <option value="shortlisted" <%= app.status==="shortlisted"?"selected":"" %>>
+                Shortlisted
+              </option>
+              <option value="rejected" <%= app.status==="rejected"?"selected":"" %>>
+                Rejected
+              </option>
+            </select>
+
+            <button class="btn-primary mt-2 w-100">
+              Save Status
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</section>

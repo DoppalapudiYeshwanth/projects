@@ -1,0 +1,52 @@
+<section class="candidates-page">
+  <div class="candidates-header">
+    <h1>Candidates</h1>
+    <p>Manage and review candidate profiles</p>
+  </div>
+
+  <div class="candidates-grid">
+    <% candidates.forEach(candidate => { %>
+      <div class="candidate-card">
+
+        <div class="candidate-header">
+          <div class="avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div>
+            <h3><%= candidate.name %></h3>
+            <p class="email"><%= candidate.email %></p>
+          </div>
+        </div>
+
+        <div class="candidate-body">
+          <p>
+            <strong>Phone:</strong> <%= candidate.phone %>
+          </p>
+
+          <p>
+            <strong>Skills:</strong>
+            <span class="skills">
+              <%= candidate.skills %>
+            </span>
+          </p>
+
+          <p class="date">
+            Applied on
+            <%= new Date(candidate.createdAt).toLocaleDateString() %>
+          </p>
+        </div>
+
+        <div class="candidate-actions">
+          <a
+            href="<%= candidate.resumeUrl.replace('/upload/', '/upload/fl_attachment/') %>"
+            class="btn-outline"
+          >
+            <i class="fa-solid fa-file-arrow-down"></i>
+            Download Resume
+          </a>
+        </div>
+
+      </div>
+    <% }) %>
+  </div>
+</section>

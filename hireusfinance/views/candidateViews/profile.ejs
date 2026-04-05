@@ -1,0 +1,106 @@
+<section class="job-detail-page">
+  <div class="job-detail-card">
+
+    <!-- Header -->
+    <div class="job-header">
+      <h1 class="job-title">
+        <i class="fa-solid fa-user-circle me-2"></i>
+        Candidate Profile
+      </h1>
+
+      <p class="job-date">
+        Registered on <%= candidate.createdAt.toDateString() %>
+      </p>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="job-info-grid">
+
+      <div class="info-box">
+        <strong>Full Name</strong>
+        <p><%= candidate.name %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Email</strong>
+        <p><%= candidate.email %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Phone</strong>
+        <p><%= candidate.phone %></p>
+      </div>
+
+      <div class="info-box">
+        <strong>Status</strong>
+        <p class="text-success fw-semibold">
+          Active Candidate
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Skills -->
+    <div class="job-skills mt-4">
+      <h4>Skills</h4>
+
+      <div class="skills-list">
+        <% candidate.skills.forEach(skill => { %>
+          <span class="skill-badge">
+            <i class="fa-solid fa-check me-1"></i>
+            <%= skill %>
+          </span>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Resume -->
+    <div class="job-actions mt-4">
+      <a href="<%= candidate.resumeUrl %>" target="_blank" class="btn-primary">
+        <i class="fa-solid fa-file-arrow-down me-1"></i>
+        View Resume
+      </a>
+    </div>
+
+    <!-- ===== Candidate Stats Dashboard ===== -->
+    <div class="mt-5">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-chart-line me-2"></i>
+        Application Overview
+      </h4>
+
+      <div class="job-info-grid">
+
+        <div class="info-box">
+          <strong>Total Skills</strong>
+          <p class="fw-bold text-primary">
+            <%= candidate.skills.length %>
+          </p>
+        </div>
+
+        <div class="info-box">
+          <strong>Total Jobs Applied</strong>
+          <p class="fw-bold text-dark">
+            <%= totalApplied %>
+          </p>
+        </div>
+
+        <div class="info-box">
+          <strong>Shortlisted</strong>
+          <p class="fw-bold text-success">
+            <%= shortlisted %>
+          </p>
+        </div>
+
+        <div class="info-box">
+          <strong>Rejected</strong>
+          <p class="fw-bold text-danger">
+            <%= rejected %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

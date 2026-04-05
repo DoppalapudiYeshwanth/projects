@@ -1,0 +1,59 @@
+<section class="jobs-section">
+
+  <!-- Header Changes Based on Role -->
+  <div class="jobs-header">
+
+    <% if (user.role === "candidate") { %>
+      <h1>Explore Job Opportunities</h1>
+      <p>Apply to roles that match your skills and career goals</p>
+
+    <% } else if (user.role === "hr") { %>
+      <h1>Manage Your Posted Jobs</h1>
+      <p>Track, update, and manage job listings you created</p>
+    <% } %>
+
+  </div>
+
+
+  <!-- Jobs Grid -->
+  <div class="jobs-grid">
+    <% for (let job of jobs) { %>
+
+      <div class="job-card">
+
+        <div class="job-card-body">
+          <h3 class="job-title"><%= job.title %></h3>
+
+          <div class="job-tags">
+            <span class="job-badge"><%= job.jobType %></span>
+            <span class="job-location"><%= job.location %></span>
+          </div>
+
+          <p class="job-date">
+            Posted on <%= job.createdAt.toDateString() %>
+          </p>
+        </div>
+
+
+        <!-- Footer Button Changes -->
+        <div class="job-card-footer">
+
+          <% if (user.role === "candidate") { %>
+            <a href="/home/<%= job._id %>" class="job-btn">
+              View & Apply →
+            </a>
+
+          <% } else if (user.role === "hr") { %>
+            <a href="/home/<%= job._id %>" class="job-btn">
+              Manage Job →
+            </a>
+          <% } %>
+
+        </div>
+
+      </div>
+
+    <% } %>
+  </div>
+
+</section>

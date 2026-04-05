@@ -1,0 +1,90 @@
+<section class="jobs-section">
+
+  <!-- Header -->
+  <div class="jobs-header">
+    <h1>My Applications</h1>
+    <p>Track the jobs you have applied for and view your application status</p>
+  </div>
+
+  <!-- If No Applications -->
+  <% if (applications.length === 0) { %>
+    <div class="empty-state">
+      <h3>No Applications Yet</h3>
+      <p>You haven’t applied to any jobs. Start exploring opportunities!</p>
+
+      <a href="/home" class="btn-primary">
+        Browse Jobs →
+      </a>
+    </div>
+  <% } %>
+
+
+  <!-- Applications Grid -->
+  <div class="jobs-grid">
+
+    <% applications.forEach(app => { %>
+
+      <div class="job-card">
+
+        <!-- Job Info -->
+        <div class="job-card-body">
+
+          <h3 class="job-title">
+            <%= app.jobId.title %>
+          </h3>
+
+          <div class="job-tags">
+            <span class="job-badge">
+              <i class="fa-solid fa-briefcase me-1"></i>
+              <%= app.jobId.jobType %>
+            </span>
+
+            <span class="job-location">
+              <i class="fa-solid fa-location-dot me-1"></i>
+              <%= app.jobId.location %>
+            </span>
+          </div>
+
+          <!-- Status Badge -->
+          <div class="application-status">
+
+            <% if (app.status === "applied") { %>
+              <span class="status-badge applied">
+                Applied
+              </span>
+            <% } %>
+
+            <% if (app.status === "shortlisted") { %>
+              <span class="status-badge shortlisted">
+                Shortlisted
+              </span>
+            <% } %>
+
+            <% if (app.status === "rejected") { %>
+              <span class="status-badge rejected">
+                Rejected
+              </span>
+            <% } %>
+
+          </div>
+
+          <p class="job-date mt-2">
+            <i class="fa-solid fa-calendar-days me-1"></i>
+            Applied on <%= app.appliedAt.toDateString() %>
+          </p>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="job-card-footer">
+          <a href="/home/<%= app.jobId._id %>" class="job-btn">
+            View Job →
+          </a>
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+</section>
