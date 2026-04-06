@@ -1,9 +1,7 @@
 const Record = require("../models/recordModel");
 const { recordSchema } = require("../validations/recordValidation");
-
 exports.createRecord = async (req, res) => {
   try {
-    // ✅ Validation
     const { error } = recordSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
@@ -11,7 +9,6 @@ exports.createRecord = async (req, res) => {
         message: error.details[0].message,
       });
     }
-
     const record = await Record.create(req.body);
 
     res.status(201).json({
@@ -26,17 +23,13 @@ exports.createRecord = async (req, res) => {
     });
   }
 };
-
 exports.getRecords = async (req, res) => {
   try {
     const { type, category } = req.query;
-
     let filter = {};
     if (type) filter.type = type;
     if (category) filter.category = category;
-
     const records = await Record.find(filter).sort({ createdAt: -1 });
-
     res.json({
       success: true,
       count: records.length,
@@ -50,7 +43,6 @@ exports.getRecords = async (req, res) => {
     });
   }
 };
-
 exports.updateRecord = async (req, res) => {
   try {
     const record = await Record.findByIdAndUpdate(
@@ -58,14 +50,12 @@ exports.updateRecord = async (req, res) => {
       req.body,
       { new: true }
     );
-
     if (!record) {
       return res.status(404).json({
         success: false,
         message: "Record not found",
       });
     }
-
     res.json({
       success: true,
       data: record,
@@ -82,14 +72,12 @@ exports.updateRecord = async (req, res) => {
 exports.deleteRecord = async (req, res) => {
   try {
     const record = await Record.findByIdAndDelete(req.params.id);
-
     if (!record) {
       return res.status(404).json({
         success: false,
         message: "Record not found",
       });
     }
-
     res.json({
       success: true,
       message: "Record deleted successfully",
